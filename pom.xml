@@ -21,7 +21,8 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>3.57</version>
+        <version>4.0</version>
+        <relativePath />
     </parent>
 
     <artifactId>artifactory</artifactId>
@@ -43,6 +44,7 @@
 
         <buildinfo.version>2.41.3</buildinfo.version>
         <buildinfo.gradle.version>4.33.3</buildinfo.gradle.version>
+        <slf4jVersion>2.0.7</slf4jVersion>
     </properties>
 
     <repositories>
@@ -75,6 +77,19 @@
         </repository>
     </repositories>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>central</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jenkins</id>
+            <name>jenkins-releases</name>
+            <url>https://repo.jenkins-ci.org/releases</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <developers>
         <developer>
             <id>eyalb</id>
@@ -103,6 +118,18 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.8.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -414,6 +441,11 @@
             <version>${buildinfo.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport</artifactId>
+            <version>4.1.79.Final</version>
+        </dependency>
+        <dependency>
             <groupId>org.jfrog.buildinfo</groupId>
             <artifactId>build-info-extractor-nuget</artifactId>
             <version>${buildinfo.version}</version>
@@ -530,7 +562,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
